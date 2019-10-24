@@ -9,7 +9,7 @@ namespace CSGeneratorLibrary
 {
     public class GenerateClassEmpty
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className, string outputPath, string[] files, string _defaultNamespace)
+        public static void generateClass(string templateName, string languageExtension, string package, string className, string outputPath, string[] files)
         {
             string[] text = readIn(templateName, languageExtension);
 
@@ -26,7 +26,7 @@ namespace CSGeneratorLibrary
 
             writeOut(replaced, className, languageExtension, outputPath);
 
-            EntityGenerate.entityGenerateMethods(languageExtension, outputPath, files, _defaultNamespace);
+            EntityGenerate.entityGenerateMethods(languageExtension, outputPath, files, package);
         }
 
         public static string[] readIn(string fileName, string languageExtension)

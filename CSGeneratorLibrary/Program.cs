@@ -25,7 +25,7 @@ namespace CSGeneratorLibrary
         public static void MainMethod(string _inpath, string _languageExtension, string _outpath, string _defaultNamespace)
         {
 
-            //Date: 2019. 10. 24. 18:55
+            //Date: 2019. 10. 24. 20:55
 
             string[] files =
                 Directory.GetFiles(_inpath, "*.xml", SearchOption.TopDirectoryOnly);
