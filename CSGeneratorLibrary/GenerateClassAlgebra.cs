@@ -172,7 +172,7 @@ namespace CSGeneratorLibrary
 
             if (!languageExtension.Equals("js"))
             {
-                GenerateClassEmpty.generateClass(templateName, languageExtension, package, className, outputPath, files, _defaultNamespace);
+                GenerateClassEmpty.generateClass(templateName, languageExtension, package, className, outputPath, files);
             }
         }
 
