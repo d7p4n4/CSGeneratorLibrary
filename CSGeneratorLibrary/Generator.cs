@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    public class Generator
+    class Generator
     {
-        public static void contextGenerate(Ac4yClass ac4y, string baseName, string namespaceName, string fileName, string languageExtension, string outputPath, string _defaultNamespace)
+        public static void contextGenerate(Ac4yClass ac4y, string baseName, string namespaceName, string fileName, string outputPath)
         {
-            string[] text = readIn(fileName + "Context", languageExtension);
+            string[] text = readIn(fileName + "Context");
             string replaced = "";
             string newLine = "";
 
             if (namespaceName == null || namespaceName.Equals(""))
             {
-                namespaceName = _defaultNamespace;
+                namespaceName = ConfigurationManager.AppSettings["namespace"];
             }
 
             for (int i = 0; i < text.Length; i++)
@@ -39,19 +39,19 @@ namespace CSGeneratorLibrary
             }
             replaced = replaced.Replace("#className#", ac4y.Name).Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, ac4y.Name + "Context", languageExtension, outputPath);
+            writeOut(replaced, ac4y.Name + "Context", outputPath);
         }
 
-        public static void programGenerator(string fileName, string languageExtension, string namespaceName, Ac4yClass ac4y, string outputPath, string _defaultNamespace)
+        public static void programGenerator(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath)
         {
             List<Ac4yProperty> values = ac4y.PropertyList;
-            string[] text = readIn(fileName, languageExtension);
+            string[] text = readIn(fileName);
             string replaced = "";
             string newLine = "";
 
             if (namespaceName == null || namespaceName.Equals(""))
             {
-                namespaceName = _defaultNamespace;
+                namespaceName = ConfigurationManager.AppSettings["namespace"];
             }
 
             for (int i = 0; i < text.Length; i++)
@@ -78,19 +78,19 @@ namespace CSGeneratorLibrary
             }
             replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", ac4y.Name + "Context");
 
-            writeOut(replaced, ac4y.Name + "SaveTest", languageExtension, outputPath);
+            writeOut(replaced, ac4y.Name + "SaveTest", outputPath);
         }
 
-        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Ac4yClass ac4y, string outputPath, string _defaultNamespace)
+        public static void generateEntityMethods(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath)
         {
             List<Ac4yProperty> props = ac4y.PropertyList;
-            string[] text = readIn(fileName, languageExtension);
+            string[] text = readIn(fileName);
             string replaced = "";
             string newLine = "";
 
             if (namespaceName == null || namespaceName.Equals(""))
             {
-                namespaceName = _defaultNamespace;
+                namespaceName = ConfigurationManager.AppSettings["namespace"];
             }
 
             int y = 0;
@@ -163,6 +163,24 @@ namespace CSGeneratorLibrary
                     i = i + 13;
                     y = 0;
                 }
+                else if (text[i].Contains("#update#"))
+                {
+                    newLine = text[i + 1].Replace("#className#", ac4y.Name) + "\n" + text[i + 2] + "\n";
+                    newLine = newLine + text[i + 3].Replace("#classContextName#", ac4y.Name + "Context") + "\n" + text[i + 4] + "\n";
+                    newLine = newLine + text[i + 5].Replace("#contextPropName#", ac4y.Name + "s").Replace("#className#", ac4y.Name)
+                                      + "\n" + text[i + 6].Replace("#className#", ac4y.Name) + "\n\n";
+
+                    foreach (var prop in props)
+                    {
+                        newLine = newLine + text[i + 8].Replace("#className#", ac4y.Name).Replace("#prop#", prop.Name) + "\n";
+                    }
+
+                    newLine = newLine + text[i + 9] + "\n" + text[i + 10] + "\n" + text[i + 11] + "\n";
+
+                    replaced = replaced + newLine + "\n";
+
+                    i = i + 11;
+                }
                 else if (text[i].Equals("#deleteById#"))
                 {
                     foreach (var prop in props)
@@ -193,8 +211,8 @@ namespace CSGeneratorLibrary
                     {
                         newLine = newLine + text[i + x] + "\n";
                     }
-                    newLine = newLine.Replace("#className#", ac4y.Name).Replace("#valueName#", ac4y.Name.Substring(0, 1).ToLower())
-                                         .Replace("#classContextName#", ac4y.Name + "Context").Replace("#contextPropName#", ac4y.Name + "s");
+                    newLine = newLine.Replace("#className#", ac4y.Name).Replace("#classContextName#", ac4y.Name + "Context")
+                                     .Replace("#contextPropName#", ac4y.Name + "s");
 
                     y = y + 1;
 
@@ -208,18 +226,19 @@ namespace CSGeneratorLibrary
                 {
                     replaced = replaced + text[i] + "\n";
                 }
+                newLine = "";
             }
 
-            replaced = replaced.Replace("#namespaceName#", namespaceName);
+            replaced = replaced.Replace("#className#", ac4y.Name);
             replaced = replaced.Replace("#mainClassName#", ac4y.Name);
 
-            writeOut(replaced, ac4y.Name + "EntityMethods", languageExtension, outputPath);
+            writeOut(replaced, ac4y.Name + "EntityMethods", outputPath);
         }
 
-        public static string[] readIn(string fileName, string languageExtension)
+        public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + ".csT");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -228,11 +247,10 @@ namespace CSGeneratorLibrary
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
+        public static void writeOut(string text, string fileName, string outputPath)
         {
-            System.IO.File.WriteAllText(outputPath + fileName + "." + languageExtension, text);
+            System.IO.File.WriteAllText(outputPath + fileName + ".cs", text);
 
         }
     }
 }
-

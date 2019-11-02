@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    class GenerateClassEmpty
+    class GenerateResponseModel
     {
-        public static void generateClass(string templateName, string package, string className, string outputPath, string[] files)
+        public static void generateResponseModel(string className, string outputPath)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn("TemplateObjectResponseModel");
 
             string replaced = "";
 
@@ -20,13 +20,9 @@ namespace CSGeneratorLibrary
                 replaced = replaced + text[i] + "\n";
             }
 
-            replaced = replaced.Replace("#namespaceName#", package);
-            replaced = replaced.Replace("#className#", className);
-            replaced = replaced.Replace("#parentClassName#", className + "Algebra");
+            replaced = replaced.Replace("#namespaceName#", className);
 
-            writeOut(replaced, className, outputPath);
-
-            EntityGenerate.entityGenerateMethods(files);
+            writeOut(replaced, className + "ResponseModel", outputPath);
         }
 
         public static string[] readIn(string fileName)

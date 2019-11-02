@@ -9,10 +9,14 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    public class EntityGenerate
+    class EntityGenerate
     {
 
-        public static void entityGenerateMethods(string languageExtension, string outputPath, string[] files, string _defaultNamespace)
+        #region values
+        private static readonly string APPSETTINGS_OUTPUTPATH = ConfigurationManager.AppSettings["outputPath"];
+        #endregion
+
+        public static void entityGenerateMethods(string[] files)
         {
 
             List<Ac4yClass> list = new List<Ac4yClass>();
@@ -28,13 +32,12 @@ namespace CSGeneratorLibrary
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
 
-                Generator.contextGenerate(list[x], list[x].Name + "Db", list[x].Namespace, "Template", languageExtension, outputPath, _defaultNamespace);
+                Generator.contextGenerate(list[x], list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_OUTPUTPATH);
 
-                Generator.generateEntityMethods("TemplateEntityMethods", languageExtension, list[x].Namespace, list[x], outputPath, _defaultNamespace);
+                Generator.generateEntityMethods("TemplateEntityMethods", list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
 
-                Generator.programGenerator("TemplateSaveProgram", languageExtension, list[x].Namespace, list[x], outputPath, _defaultNamespace);
+                Generator.programGenerator("TemplateSaveProgram", list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
             }
         }
     }
 }
-

@@ -67,12 +67,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiMethodGenerator.cs" />
     <Compile Include="DeseriliseMethod.cs" />
     <Compile Include="EntityGenerate.cs" />
     <Compile Include="GenerateClass.cs" />
     <Compile Include="GenerateClassAlgebra.cs" />
     <Compile Include="GenerateClassEmpty.cs" />
     <Compile Include="Generator.cs" />
+    <Compile Include="GeneratorResponseModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
