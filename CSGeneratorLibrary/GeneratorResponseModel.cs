@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    class GenerateResponseModel
+    public class GenerateResponseModel
     {
         public static void generateResponseModel(string className, string outputPath)
         {

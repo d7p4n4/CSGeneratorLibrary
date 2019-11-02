@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    class Generator
+    public class Generator
     {
         public static void contextGenerate(Ac4yClass ac4y, string baseName, string namespaceName, string fileName, string outputPath)
         {

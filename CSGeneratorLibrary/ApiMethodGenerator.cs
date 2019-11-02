@@ -8,7 +8,7 @@ using CSAc4yClass.Class;
 
 namespace CSGeneratorLibrary
 {
-    class ApiMethodGenerator
+    public class ApiMethodGenerator
     {
 
         public static void generateApiMethods(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath)

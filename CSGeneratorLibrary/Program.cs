@@ -25,7 +25,7 @@ namespace CSGeneratorLibrary
         public static void MainMethod(string _inpath, string _outpath, string _defaultNamespace)
         {
 
-            //Date: 2019. 11. 2. 12:58
+            //Date: 2019. 11. 2. 16:48
 
             string[] files =
                 Directory.GetFiles(_inpath, "*.xml", SearchOption.TopDirectoryOnly);
@@ -35,7 +35,7 @@ namespace CSGeneratorLibrary
                 string _filename = Path.GetFileNameWithoutExtension(_file);
                 Console.WriteLine(_filename);
 
-                Ac4yClass ac4y = DeserialiseMethod.deser(_file);
+               Ac4yClass ac4y = DeserialiseMethod.deser(_file);
 
                 GenerateClass.generateClass(ac4y, _outpath, files, _defaultNamespace);
             }

@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace CSGeneratorLibrary
 {
-    class DeserialiseMethod
+    public class DeserialiseMethod
     {
         public static Ac4yClass deser(string path)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    class GenerateClassAlgebra
+    public class GenerateClassAlgebra
     {
         public static void generateClass(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath, string[] files)
         {

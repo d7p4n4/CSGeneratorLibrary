@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    class GenerateClassEmpty
+    public class GenerateClassEmpty
     {
         public static void generateClass(string templateName, string package, string className, string outputPath, string[] files)
         {
@@ -26,7 +26,7 @@ namespace CSGeneratorLibrary
 
             writeOut(replaced, className, outputPath);
 
-            EntityGenerate.entityGenerateMethods(files);
+            EntityGenerate.entityGenerateMethods(files, outputPath);
         }
 
         public static string[] readIn(string fileName)

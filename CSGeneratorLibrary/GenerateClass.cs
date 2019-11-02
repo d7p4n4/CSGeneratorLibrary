@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSGeneratorLibrary
 {
-    class GenerateClass
+    public class GenerateClass
     {
         public static void generateClass(Ac4yClass anyType, string outputPath, string[] files, string _defaultNamespace)
         {
