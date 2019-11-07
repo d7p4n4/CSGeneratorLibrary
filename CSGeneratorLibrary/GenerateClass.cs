@@ -13,15 +13,11 @@ namespace CSGeneratorLibrary
         public static void generateClass(Ac4yClass anyType, string outputPath, string[] files, string _defaultNamespace)
         {
             string className = anyType.Name;
-            string package = anyType.Namespace;
+            string package = _defaultNamespace;
 
             //get the properties and its type
             List<Ac4yProperty> map = anyType.PropertyList;
-
-            if (package == null)
-            {
-                package = _defaultNamespace;
-            }
+            Boolean guidExists = false;
 
             string[] text = new String[0];
 
@@ -72,6 +68,11 @@ namespace CSGeneratorLibrary
                 {
                     foreach (var pair in map)
                     {
+                        if (pair.Name.Equals("GUID"))
+                        {
+                            guidExists = true;
+                        }
+
                         string newLine = "";
 
                         newLine = newLine + text[i + 1].Replace("#type#", pair.Type);
@@ -79,9 +80,18 @@ namespace CSGeneratorLibrary
 
                         replaced = replaced + "\n" + newLine;
                     }
+
+                    if (!guidExists)
+                    {
+                        string newLine = "";
+
+                        newLine = newLine + text[i + 1].Replace("#type#", "string");
+                        newLine = newLine.Replace("#prop#", "GUID");
+
+                        replaced = replaced + "\n" + newLine;
+                    }
                     i++;
                 }
-
                 else if (text[i].Equals("#getter#"))
                 {
                     foreach (var pair in map)
@@ -158,7 +168,7 @@ namespace CSGeneratorLibrary
 
             GenerateClassAlgebra.generateClass("Template", package, className, map, outputPath, files);
             ApiMethodGenerator.generateApiMethods("Template", package, className, map, outputPath);
-            GenerateResponseModel.generateResponseModel(className, outputPath);
+            GeneratePersistentService.generatePersistentService("Template", package, className, map, outputPath);
 
         }
 

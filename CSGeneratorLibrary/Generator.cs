@@ -11,35 +11,33 @@ namespace CSGeneratorLibrary
 {
     public class Generator
     {
-        public static void contextGenerate(Ac4yClass ac4y, string baseName, string namespaceName, string fileName, string outputPath)
+        public static void contextGenerate(List<Ac4yClass> list, string package, string fileName, string outputPath)
         {
             string[] text = readIn(fileName + "Context");
             string replaced = "";
             string newLine = "";
 
-            if (namespaceName == null || namespaceName.Equals(""))
-            {
-                namespaceName = ConfigurationManager.AppSettings["namespace"];
-            }
-
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i].Equals("#classes#"))
                 {
-                    newLine = newLine + text[i + 1].Replace("#classesName#", ac4y.Name).Replace("#tableName#", ac4y.Name + "s") + "\n";
-                    newLine = newLine + text[i + 2] + "\n";
+                    foreach (var ac4y in list)
+                    {
+                        newLine = newLine + text[i + 1].Replace("#classesName#", ac4y.Name).Replace("#tableName#", ac4y.Name + "s") + "\n";
+                        newLine = newLine + "\n";
+                    }
 
                     replaced = replaced + newLine + "\n";
 
 
-                    i = i + 3;
+                    i = i + 2;
                 }
 
                 replaced = replaced + text[i] + "\n";
             }
-            replaced = replaced.Replace("#className#", ac4y.Name).Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
+            replaced = replaced.Replace("#className#", "All").Replace("#namespaceName#", package);
 
-            writeOut(replaced, ac4y.Name + "Context", outputPath);
+            writeOut(replaced, "AllContext", outputPath);
         }
 
         public static void programGenerator(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath)
