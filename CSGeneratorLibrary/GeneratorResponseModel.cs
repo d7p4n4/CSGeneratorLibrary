@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CSGeneratorLibrary
 {
     public class GenerateResponseModel
-    {
+    {/*
         public static void generateResponseModel(string className, string outputPath)
         {
             string[] text = readIn("TemplateObjectResponseModel");
@@ -39,6 +39,6 @@ namespace CSGeneratorLibrary
         {
             File.WriteAllText(outputPath + fileName + ".cs", text);
 
-        }
+        }*/
     }
 }

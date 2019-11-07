@@ -13,10 +13,9 @@ namespace CSGeneratorLibrary
     {
 
         #region values
-        private static readonly string APPSETTINGS_OUTPUTPATH = ConfigurationManager.AppSettings["outputPath"];
         #endregion
 
-        public static void entityGenerateMethods(string[] files, string outputPath, string package)
+        public static void entityGenerateMethods(string[] files, string package, string outputPath)
         {
 
             List<Ac4yClass> list = new List<Ac4yClass>();
@@ -29,15 +28,14 @@ namespace CSGeneratorLibrary
             }
 
 
-            Generator.contextGenerate(list, package, "Template", outputPath);
+            Generator.contextGenerate("Template", outputPath, list, package);
+
 
             for (var x = 0; x < files2.Length; x++)
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
 
-
                 Generator.generateEntityMethods("TemplateEntityMethods", package, list[x], outputPath);
-
                 Generator.programGenerator("TemplateSaveProgram", package, list[x], outputPath);
             }
         }

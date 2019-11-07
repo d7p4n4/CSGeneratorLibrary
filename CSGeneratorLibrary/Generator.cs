@@ -11,7 +11,7 @@ namespace CSGeneratorLibrary
 {
     public class Generator
     {
-        public static void contextGenerate(List<Ac4yClass> list, string package, string fileName, string outputPath)
+        public static void contextGenerate(string fileName, string outputPath, List<Ac4yClass> list, string package)
         {
             string[] text = readIn(fileName + "Context");
             string replaced = "";
@@ -46,11 +46,6 @@ namespace CSGeneratorLibrary
             string[] text = readIn(fileName);
             string replaced = "";
             string newLine = "";
-
-            if (namespaceName == null || namespaceName.Equals(""))
-            {
-                namespaceName = ConfigurationManager.AppSettings["namespace"];
-            }
 
             for (int i = 0; i < text.Length; i++)
             {
@@ -227,7 +222,7 @@ namespace CSGeneratorLibrary
                 newLine = "";
             }
 
-            replaced = replaced.Replace("#className#", ac4y.Name);
+            replaced = replaced.Replace("#className#", ac4y.Name).Replace("#namespaceName#", namespaceName);
             replaced = replaced.Replace("#mainClassName#", ac4y.Name);
 
             writeOut(replaced, ac4y.Name + "EntityMethods", outputPath);
