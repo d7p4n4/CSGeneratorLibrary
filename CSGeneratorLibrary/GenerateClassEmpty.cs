@@ -32,7 +32,7 @@ namespace CSGeneratorLibrary
         public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + ".csT");
+            string textFile = "c:\\Templates\\" + fileName + ".csT";
 
             string[] text = File.ReadAllLines(textFile);
 

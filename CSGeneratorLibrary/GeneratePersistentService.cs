@@ -77,7 +77,7 @@ namespace CSGeneratorLibrary
         public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "PersistentService.csT");
+            string textFile = "c:\\Templates\\" + fileName + "PersistentService.csT";
 
             string[] text = File.ReadAllLines(textFile);
 

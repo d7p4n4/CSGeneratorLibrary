@@ -67,7 +67,7 @@ namespace CSGeneratorLibrary
         public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "ApiEntityMethods.csT");
+            string textFile = "c:\\Templates\\" + fileName + "ApiEntityMethods.csT";
 
             string[] text = File.ReadAllLines(textFile);
 
