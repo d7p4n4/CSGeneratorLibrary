@@ -25,7 +25,7 @@ namespace CSGeneratorLibrary
         public static void MainMethod(string _inpath, string _outpath, string _defaultNamespace, string templatesFolder)
         {
 
-            //Date: 2019. 11. 09. 15:35
+            //Date: 2019. 11. 09. 18:30
             if (!Directory.Exists(_outpath + "PrePrcessed"))
                 Directory.CreateDirectory(_outpath + "PreProcessed");
 

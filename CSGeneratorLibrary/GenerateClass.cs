@@ -177,7 +177,7 @@ namespace CSGeneratorLibrary
         public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = templatesFolder + fileName + "PreProcessed.csT";
+            string textFile = templatesFolder + "\\PreProcessed\\" + fileName + "PreProcessed.csT";
 
             string[] text = File.ReadAllLines(textFile);
 

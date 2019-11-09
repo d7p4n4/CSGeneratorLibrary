@@ -177,7 +177,7 @@ namespace CSGeneratorLibrary
         public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = templatesFolder + fileName + "Algebra.csT";
+            string textFile = templatesFolder + "\\Algebra\\" + fileName + "Algebra.csT";
 
             string[] text = File.ReadAllLines(textFile);
 
