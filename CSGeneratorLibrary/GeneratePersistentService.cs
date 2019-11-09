@@ -11,9 +11,9 @@ namespace CSGeneratorLibrary
     class GeneratePersistentService
     {
 
-        public static void generatePersistentService(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath)
+        public static void generatePersistentService(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath, string templatesFolder)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn(templateName, templatesFolder);
 
             string replaced = "";
             string newLine = "";
@@ -74,10 +74,10 @@ namespace CSGeneratorLibrary
 
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = "c:\\Templates\\" + fileName + "PersistentService.csT";
+            string textFile = templatesFolder + fileName + "PersistentService.csT";
 
             string[] text = File.ReadAllLines(textFile);
 

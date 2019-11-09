@@ -10,9 +10,9 @@ namespace CSGeneratorLibrary
 {
     public class GenerateClassAlgebra
     {
-        public static void generateClass(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath, string[] files)
+        public static void generateClass(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath, string[] files, string templatesFolder)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn(templateName, templatesFolder);
 
             string replaced = "";
             string newLine = "";
@@ -170,14 +170,14 @@ namespace CSGeneratorLibrary
 
             writeOut(replaced, className, outputPath);
 
-            GenerateClassEmpty.generateClass(templateName, package, className, outputPath, files);
+            GenerateClassEmpty.generateClass(templateName, package, className, outputPath, files, templatesFolder);
 
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = "c:\\Templates\\" + fileName + "Algebra.csT";
+            string textFile = templatesFolder + fileName + "Algebra.csT";
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -188,7 +188,7 @@ namespace CSGeneratorLibrary
 
         public static void writeOut(string text, string fileName, string outputPath)
         {
-            File.WriteAllText(outputPath + fileName + "Algebra.cs", text);
+            File.WriteAllText(outputPath + "\\Algebra\\" + fileName + "Algebra.cs", text);
 
         }
     }

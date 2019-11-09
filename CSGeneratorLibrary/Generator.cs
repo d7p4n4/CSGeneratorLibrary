@@ -11,9 +11,9 @@ namespace CSGeneratorLibrary
 {
     public class Generator
     {
-        public static void contextGenerate(string fileName, string outputPath, List<Ac4yClass> list, string package)
+        public static void contextGenerate(string fileName, string outputPath, List<Ac4yClass> list, string package, string templatesFolder)
         {
-            string[] text = readIn(fileName + "Context");
+            string[] text = readIn(fileName + "Context", templatesFolder);
             string replaced = "";
             string newLine = "";
 
@@ -40,10 +40,10 @@ namespace CSGeneratorLibrary
             writeOut(replaced, "AllContext", outputPath);
         }
 
-        public static void programGenerator(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath)
+        public static void programGenerator(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath, string templatesFolder)
         {
             List<Ac4yProperty> values = ac4y.PropertyList;
-            string[] text = readIn(fileName);
+            string[] text = readIn(fileName, templatesFolder);
             string replaced = "";
             string newLine = "";
 
@@ -74,10 +74,10 @@ namespace CSGeneratorLibrary
             writeOut(replaced, ac4y.Name + "SaveTest", outputPath);
         }
 
-        public static void generateEntityMethods(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath)
+        public static void generateEntityMethods(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath, string templatesFolder)
         {
             List<Ac4yProperty> props = ac4y.PropertyList;
-            string[] text = readIn(fileName);
+            string[] text = readIn(fileName, templatesFolder);
             string replaced = "";
             string newLine = "";
 
@@ -228,10 +228,10 @@ namespace CSGeneratorLibrary
             writeOut(replaced, ac4y.Name + "EntityMethods", outputPath);
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = "c:\\Templates\\" + fileName + ".csT";
+            string textFile = templatesFolder + fileName + ".csT";
 
             string[] text = File.ReadAllLines(textFile);
 

@@ -9,9 +9,9 @@ namespace CSGeneratorLibrary
 {
     public class GenerateClassEmpty
     {
-        public static void generateClass(string templateName, string package, string className, string outputPath, string[] files)
+        public static void generateClass(string templateName, string package, string className, string outputPath, string[] files, string templatesFolder)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn(templateName, templatesFolder);
 
             string replaced = "";
 
@@ -26,13 +26,13 @@ namespace CSGeneratorLibrary
 
             writeOut(replaced, className, outputPath);
 
-            EntityGenerate.entityGenerateMethods(files, package, outputPath);
+            //EntityGenerate.entityGenerateMethods(files, package, outputPath, templatesFolder);
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = "c:\\Templates\\" + fileName + ".csT";
+            string textFile = templatesFolder + fileName + ".csT";
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -41,7 +41,7 @@ namespace CSGeneratorLibrary
 
         public static void writeOut(string text, string fileName, string outputPath)
         {
-            File.WriteAllText(outputPath + fileName + ".cs", text);
+            File.WriteAllText(outputPath + "\\Final\\" + fileName + ".cs", text);
 
         }
     }

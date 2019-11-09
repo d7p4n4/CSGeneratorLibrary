@@ -10,7 +10,7 @@ namespace CSGeneratorLibrary
 {
     public class GenerateClass
     {
-        public static void generateClass(Ac4yClass anyType, string outputPath, string[] files, string namespaceName)
+        public static void generateClass(Ac4yClass anyType, string outputPath, string[] files, string namespaceName, string templatesFolder)
         {
             string className = anyType.Name;
             string package = namespaceName;
@@ -21,7 +21,7 @@ namespace CSGeneratorLibrary
 
             string[] text = new String[0];
 
-            text = readIn("Template");
+            text = readIn("Template", templatesFolder);
 
             string replaced = "";
 
@@ -167,17 +167,17 @@ namespace CSGeneratorLibrary
             replaced = replaced.Replace("#className#", className + "PreProcessed");
             writeOut(replaced, className, outputPath);
 
-            GenerateClassAlgebra.generateClass("Template", package, className, map, outputPath, files);
-            ApiMethodGenerator.generateApiMethods("Template", package, className, map, outputPath);
-            GeneratePersistentService.generatePersistentService("Template", package, className, map, outputPath);
+            GenerateClassAlgebra.generateClass("Template", package, className, map, outputPath, files, templatesFolder);
+            //ApiMethodGenerator.generateApiMethods("Template", package, className, map, outputPath, templatesFolder);
+            //GeneratePersistentService.generatePersistentService("Template", package, className, map, outputPath, templatesFolder);
             //GenerateResponseModel.generateResponseModel(className, outputPath);
 
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = "c:\\Templates\\" + fileName + "PreProcessed.csT";
+            string textFile = templatesFolder + fileName + "PreProcessed.csT";
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -188,7 +188,7 @@ namespace CSGeneratorLibrary
 
         public static void writeOut(string text, string fileName, string outputPath)
         {
-            System.IO.File.WriteAllText(outputPath + fileName + "PreProcessed.cs", text);
+            System.IO.File.WriteAllText(outputPath + "\\PreProcessed\\" + fileName + "PreProcessed.cs", text);
 
         }
     }

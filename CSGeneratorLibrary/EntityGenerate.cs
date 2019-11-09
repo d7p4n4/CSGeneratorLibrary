@@ -15,7 +15,7 @@ namespace CSGeneratorLibrary
         #region values
         #endregion
 
-        public static void entityGenerateMethods(string[] files, string package, string outputPath)
+        public static void entityGenerateMethods(string[] files, string package, string outputPath, string templatesFolder)
         {
 
             List<Ac4yClass> list = new List<Ac4yClass>();
@@ -28,15 +28,15 @@ namespace CSGeneratorLibrary
             }
 
 
-            Generator.contextGenerate("Template", outputPath, list, package);
+            Generator.contextGenerate("Template", outputPath, list, package, templatesFolder);
 
 
             for (var x = 0; x < files2.Length; x++)
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
 
-                Generator.generateEntityMethods("TemplateEntityMethods", package, list[x], outputPath);
-                Generator.programGenerator("TemplateSaveProgram", package, list[x], outputPath);
+                Generator.generateEntityMethods("TemplateEntityMethods", package, list[x], outputPath, templatesFolder);
+                Generator.programGenerator("TemplateSaveProgram", package, list[x], outputPath, templatesFolder);
             }
         }
     }

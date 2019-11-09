@@ -22,10 +22,18 @@ namespace CSGeneratorLibrary
 
         #endregion // base functions
 
-        public static void MainMethod(string _inpath, string _outpath, string _defaultNamespace)
+        public static void MainMethod(string _inpath, string _outpath, string _defaultNamespace, string templatesFolder)
         {
 
-            //Date: 2019. 11. 2. 16:48
+            //Date: 2019. 11. 09. 15:35
+            if (!Directory.Exists(_outpath + "PrePrcessed"))
+                Directory.CreateDirectory(_outpath + "PreProcessed");
+
+            if (!Directory.Exists(_outpath + "Algebra"))
+                Directory.CreateDirectory(_outpath + "Algebra");
+
+            if (!Directory.Exists(_outpath + "Final"))
+                Directory.CreateDirectory(_outpath + "Final");
 
             string[] files =
                 Directory.GetFiles(_inpath, "*.xml", SearchOption.TopDirectoryOnly);
@@ -37,7 +45,7 @@ namespace CSGeneratorLibrary
 
                Ac4yClass ac4y = DeserialiseMethod.deser(_file);
 
-                GenerateClass.generateClass(ac4y, _outpath, files, _defaultNamespace);
+                GenerateClass.generateClass(ac4y, _outpath, files, _defaultNamespace, templatesFolder);
             }
         }
     }

@@ -11,9 +11,9 @@ namespace CSGeneratorLibrary
     public class ApiMethodGenerator
     {
 
-        public static void generateApiMethods(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath)
+        public static void generateApiMethods(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath, string templatesFolder)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn(templateName, templatesFolder);
 
             string replaced = "";
             string newLine = "";
@@ -64,10 +64,10 @@ namespace CSGeneratorLibrary
 
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string templatesFolder)
         {
 
-            string textFile = "c:\\Templates\\" + fileName + "ApiEntityMethods.csT";
+            string textFile = templatesFolder + fileName + "ApiEntityMethods.csT";
 
             string[] text = File.ReadAllLines(textFile);
 
